@@ -25,6 +25,20 @@
 // TODO : récupérez ces éléments et rangez-les dans des constantes.
 // Question : quelle est la différence entre getElementById et querySelector ?
 
+    const coursescontainer= document.getElementById("courses-container");
+    let carts="";
+    for (i=0;i<cours.length;i++){
+  carts+=`<article class="cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm ring-2 ring-teal-600 transition hover:shadow-md" data-id="yoga">
+            <img src="${cours[i].image}" alt="Visuel du cours ${cours[i].nom}" class="h-36 w-full object-cover"/>
+            <div class="space-y-1 p-4">
+              <span class="inline-block rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">Yoga</span>
+              <h3 class="text-lg font-semibold text-slate-900">${cours[i].nom}</h3>
+              <p class="text-sm text-slate-600">${cours[i].duree},avec aussi ${cours[i].coach}</p>
+              <p class="pt-1 text-base font-bold text-slate-900">${cours[i].prix}<span class="text-sm font-normal text-slate-500">par place</span></p>
+            </div>
+          </article>`}
+   
+       coursescontainer.innerHTML= carts
 
 // ------------------------------------------------------------
 // ÉTAPE 2 : État de l'application
