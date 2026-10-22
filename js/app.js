@@ -25,20 +25,7 @@
 // TODO : récupérez ces éléments et rangez-les dans des constantes.
 // Question : quelle est la différence entre getElementById et querySelector ?
 
-    const coursescontainer= document.getElementById("courses-container");
-    let carts="";
-    for (i=0;i<cours.length;i++){
-  carts+=`<article class="cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm ring-2 ring-teal-600 transition hover:shadow-md" data-id="yoga">
-            <img src="${cours[i].image}" alt="Visuel du cours ${cours[i].nom}" class="h-36 w-full object-cover"/>
-            <div class="space-y-1 p-4">
-              <span class="inline-block rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">Yoga</span>
-              <h3 class="text-lg font-semibold text-slate-900">${cours[i].nom}</h3>
-              <p class="text-sm text-slate-600">${cours[i].duree},avec aussi ${cours[i].coach}</p>
-              <p class="pt-1 text-base font-bold text-slate-900">${cours[i].prix}<span class="text-sm font-normal text-slate-500">par place</span></p>
-            </div>
-          </article>`}
-   
-       coursescontainer.innerHTML= carts
+
 
 // ------------------------------------------------------------
 // ÉTAPE 2 : État de l'application
@@ -48,7 +35,6 @@
 // Question : de quelles informations avez-vous besoin ?
 //  (cours choisi, créneau choisi, emplacements choisis...)
 // Indice : pourquoi un tableau est-il adapté pour les emplacements choisis ?
-
 
 // ------------------------------------------------------------
 // ÉTAPE 3 : Afficher les cours (US01)
@@ -61,6 +47,21 @@
 //  - Quelle boucle ou méthode de tableau allez-vous utiliser ?
 //  - Comment stocker l'id du cours sur la carte (indice : data-*) ?
 //  - Les template literals (`...${valeur}...`) peuvent-ils vous aider ?
+const coursescontainer = document.getElementById("courses-container");
+let carts = "";
+for (i = 0; i < cours.length; i++) {
+    carts += `<article class="cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm ring-2 ring-teal-600 transition hover:shadow-md" data-id="yoga">
+           <img src="${cours[i].image}" alt="Visuel du cours ${cours[i].nom}" class="h-36 w-full object-cover"/>
+           <div class="space-y-1 p-4">
+            <span class="inline-block rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">${cours[i].id}</span>
+            <h3 class="text-lg font-semibold text-slate-900">${cours[i].nom}</h3>
+           <p class="text-sm text-slate-600">${cours[i].duree},avec aussi ${cours[i].coach}</p>
+           <p class="pt-1 text-base font-bold text-slate-900">${cours[i].prix} $<span class="text-sm font-normal text-slate-500">par place</span></p>
+           </div>
+         </article>`}
+
+coursescontainer.innerHTML = carts
+
 
 
 // ------------------------------------------------------------
@@ -75,7 +76,29 @@
 //  - Comment retrouver le cours à partir de l'id lu dans la carte ?
 //  - Que faut-il réinitialiser quand on change de cours ?
 
+let cartes = coursescontainer.querySelectorAll(`[data-id]`);
+console.log(cartes)
 
+cartes.forEach(function (carte) {
+    carte.addEventListener('click', function () {
+
+        cartes.forEach(function (c) {
+            c.classList.remove('ring-2', 'ring-teal-600');
+        });
+
+        carte.classList.add('ring-2', 'ring-teal-600');
+
+    })
+    let slectedCardId = carte.getAttribute('data-id')
+    Creationbtn()
+
+
+    /*<button type="button" class="rounded-xl border px-4 py-2 text-sm font-medium transition border-teal-600 bg-teal-600 text-white" data-id="lundi-18:30">
+                Lundi <span class="font-normal">18:30</span>
+              </button>*/
+
+
+});
 // ------------------------------------------------------------
 // ÉTAPE 5 : Afficher et sélectionner un créneau (US03)
 // ------------------------------------------------------------
@@ -87,7 +110,35 @@
 //  - Quand cette fonction doit-elle être appelée ?
 //  - Que se passe-t-il si aucun cours n'est encore sélectionné ?
 
+function Creationbtn() {
+    const framecontainer = document.getElementById("slots-container");
+    let BTN = "";
+    cours.forEach((items) => {
+        if (items.id == slectedCardId) {
+            cours.creneaux.forEach((items) => {
+                BTN += <button type="button" class="rounded-xl border px-4 py-2 text-sm font-medium transition border-teal-600 bg-teal-600 text-white" data-id ="${items.jour},${items.heure}">
+                    Lundi <span class="font-normal"> ${items.heure} </span>
+                </button>
+            })
 
+        }
+
+
+        coursescontainer.innerHTML = BTN
+    })
+}
+
+
+
+
+
+
+
+
+
+//<button type="button" class="rounded-xl border px-4 py-2 text-sm font-medium transition border-teal-600 bg-teal-600 text-white" data-id="lundi-18:30">
+//    Lundi <span class="font-normal">18:30</span>
+//  </button>*/
 // ------------------------------------------------------------
 // ÉTAPE 6 : Afficher le plan de la salle (US04)
 // ------------------------------------------------------------
