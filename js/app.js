@@ -116,9 +116,9 @@ function Creationbtn() {
     cours.forEach((items) => {
         if (items.id == slectedCardId) {
             cours.creneaux.forEach((items) => {
-                BTN += <button type="button" class="rounded-xl border px-4 py-2 text-sm font-medium transition border-teal-600 bg-teal-600 text-white" data-id ="${items.jour},${items.heure}">
+                BTN += `<button type="button" class="rounded-xl border px-4 py-2 text-sm font-medium transition border-teal-600 bg-teal-600 text-white" data-id = ${items.jour}
                     Lundi <span class="font-normal"> ${items.heure} </span>
-                </button>
+                </button>`
             })
 
         }
